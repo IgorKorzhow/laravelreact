@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+use App\Http\Controllers\API\PassportAuthController;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('register', [PassportAuthController::class, 'register']);
+Route::post('login', [PassportAuthController::class, 'login']);
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('logout', [PassportAuthController::class, 'logout']);
+    Route::get('get-user', [PassportAuthController::class, 'userInfo']);
+    Route::post('change-password', [PassportAuthController::class, 'changePassword']);
 });
