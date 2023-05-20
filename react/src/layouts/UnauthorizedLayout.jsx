@@ -1,19 +1,13 @@
-import {Navigate, Outlet} from "react-router-dom";
-import {useStateContext} from "../context/contextProvider.jsx";
+import {Outlet} from "react-router-dom";
+import Navbar from "../components/Navbar.jsx";
 
 function UnauthorizedLayout() {
-    const {token} = useStateContext();
-
-    if (token) {
-        return <Navigate to="/" />
-    }
 
     return (
-        <div className="container mt-5" style={{width: "35%"}}>
-            <div className="card p-5">
-                <Outlet/>
-            </div>
-        </div>
+        <>
+            <Navbar />
+            <Outlet/>
+        </>
     );
 }
 

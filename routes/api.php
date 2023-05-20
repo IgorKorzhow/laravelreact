@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MuscleGroupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', [PassportAuthController::class, 'logout']);
     Route::get('get-user', [PassportAuthController::class, 'userInfo']);
     Route::post('change-password', [PassportAuthController::class, 'changePassword']);
+
+    Route::get('muscleGroup/index', [MuscleGroupController::class, 'index']);
 });
