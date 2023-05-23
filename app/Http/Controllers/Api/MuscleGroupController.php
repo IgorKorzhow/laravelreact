@@ -14,8 +14,8 @@ class MuscleGroupController extends Controller
      */
     public function index()
     {
-        $muscleGroup = MuscleGroupResource::make(MuscleGroup::all());
-        return response($muscleGroup);
+        $muscleGroup = MuscleGroup::all();
+        return response()->json($muscleGroup);
     }
 
     /**
