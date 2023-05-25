@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Image extends Model
+class Feature extends Model
 {
     use HasFactory;
 
@@ -15,8 +14,5 @@ class Image extends Model
         'updated_at',
     ];
 
-    public function exercise(): BelongsTo
-    {
-        return $this->belongsTo(Exercise::class);
-    }
+    protected $fillable = ['name', 'program_id'];
 }

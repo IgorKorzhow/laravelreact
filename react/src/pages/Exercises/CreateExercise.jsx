@@ -1,27 +1,21 @@
 import {useEffect, useRef, useState} from "react";
 import axiosClient from "../../axios-client.js";
 import {useNavigate} from "react-router-dom";
+import MuscleGroup from "../../repository/MuscleGroupRepository.jsx";
+import ExerciseRepository from "../../repository/ExerciseRepository.jsx";
 
 function CreateExercise() {
 
     const [muscles, setMuscles] = useState([]);
     const nameRef = useRef();
     const muscleRef = useRef();
+    const mainImageRef = useRef();
     const imageRef = useRef();
     const descriptionRef = useRef();
     const navigate = useNavigate();
 
     useEffect(() => {
-        axiosClient.get("/muscleGroup/index")
-            .then((response) => {
-                setMuscles(response.data);
-            })
-            .catch((error) => {
-                const response = error.response;
-                if (response) {
-                    console.log(response.data.errors);
-                }
-            })
+        MuscleGroup.get(setMuscles);
     }, []);
 
     const onSubmit = (event) => {
@@ -34,20 +28,21 @@ function CreateExercise() {
         const formData = new FormData();
         formData.append("name", nameRef.current.value);
         formData.append("muscle_id", muscleGroup);
+        formData.append("main_image", mainImageRef.current.files[0]);
         const images = Object.values(imageRef.current.files);
         images.forEach(element => formData.append("images[]", element));
         formData.append("description", descriptionRef.current.value);
-        axiosClient.post("/exercises", formData).then(() => {
+        ExerciseRepository.post(formData)
+        .then(() => {
             navigate("/exercises");
-        }).catch((error) => {
-            console.log(error);
         })
     }
 
     return (
-        <div className="container mt-5 w-50">
+        <div className="container mt-5 mb-5 w-50">
             <div className="card p-4 bg-light">
                 <form onSubmit={onSubmit}>
+                    <h4 className="text-center">Create Exercise</h4>
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Name:</label>
                         <input ref={nameRef} type="text" className="form-control" id="name" required/>
@@ -63,10 +58,16 @@ function CreateExercise() {
                         </select>
                     </div>
                     <div className="input-group mb-4">
-                        <label className="input-group-text" htmlFor="inputImage">Upload</label>
+                        <label className="input-group-text" htmlFor="mainInputImage">Main image</label>
+                        <input ref={mainImageRef} type="file" className="form-control"
+                               id="mainInputImage" required/>
+                    </div>
+                    <div className="input-group mb-4">
+                        <label className="input-group-text" htmlFor="inputImage">Images</label>
                         <input ref={imageRef} type="file" className="form-control"
                                id="inputImage" multiple required/>
                     </div>
+
                     <div className="form-floating mb-3">
                         <textarea ref={descriptionRef} className="form-control" placeholder="Leave a description here" id="description"
                                   style={{height: "100px"}}></textarea>

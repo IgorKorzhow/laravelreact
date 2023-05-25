@@ -3,45 +3,36 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\filters\ExerciseFilter;
-use App\Http\Requests\StoreExerciseRequest;
+use App\Http\filters\CompletedExerciseFilter;
+use App\Http\Requests\StoreCompletedExerciseRequest;
+use App\Models\CompletedExercises;
 use App\Models\Exercise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use function Webmozart\Assert\Tests\StaticAnalysis\resource;
 
-class ExerciseController extends Controller
+class CompletedExerciseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(ExerciseFilter $filter)
+    public function index(CompletedExerciseFilter $filter)
     {
-        $current_page = $filter->request->query('current_page') ?? 0;
+
+       /* $current_page = $filter->request->query('current_page') ?? 0;
         $per_page = $filter->request->query('per_page') ?? 100000;
         $allExercises = Exercise::filter($filter)
             ->with(['images', 'muscleGroup'])
             ->paginate($per_page, ['*'], 'page', $current_page);
-        return response()->json($allExercises);
+        return response()->json($allExercises); */
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreExerciseRequest $request)
+    public function store(StoreCompletedExerciseRequest $request)
     {
-        $exercise = $request->validated();
-        DB::transaction(function() use ($exercise) {
-            $images = $exercise['images'];
-            $mainImgae = $exercise['main_image'];
-            unset($exercise['images']);
-            unset($exercise['main_image']);
-            $exercise['main_image'] = createAndSaveImage('public/images', $mainImgae)['img_name'];
-            $exercise = Exercise::create($exercise);
-            foreach ($images as $image) {
-                $exercise->images()->save(createAndSaveImage('public/images', $image));
-            }
-        }, 3);
+        $completedExercise = $request->validated();
+        CompletedExercises::create($completedExercise);
         return response(["message" => 'Everything is ok'], 201);
     }
 

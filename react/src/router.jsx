@@ -7,6 +7,9 @@ import Register from "./pages/Register.jsx";
 import Main from "./pages/Main.jsx";
 import Exercises from "./pages/Exercises/Exercises.jsx";
 import CreateExercise from "./pages/Exercises/CreateExercise.jsx";
+import Programs from "./pages/Programs/Programs.jsx";
+import CreateProgram from "./pages/Programs/CreateProgram.jsx";
+import Progress from "./pages/Progress.jsx";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: '/exercises',
                 element: <Exercises />
+            },
+            {
+                path: '/programs',
+                element: <Programs />
             },
             {
                 path: '/login',
@@ -46,6 +53,18 @@ const router = createBrowserRouter([
             {
                 path: '/exercises/create',
                 element: <CreateExercise />
+            },
+            {
+                path: '/programs',
+                element: <Programs />
+            },
+            {
+                path: '/programs/create',
+                element: <CreateProgram />
+            },
+            {
+                path: '/progress',
+                element: <Progress />
             },
         ]
     },

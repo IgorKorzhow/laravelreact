@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\CompletedExerciseController;
 use App\Http\Controllers\Api\ExerciseController;
 use App\Http\Controllers\Api\MuscleGroupController;
+use App\Http\Controllers\Api\ProgramController;
+use App\Models\CompletedExercises;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +23,7 @@ use App\Http\Controllers\API\PassportAuthController;
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
 Route::get('exercises', [ExerciseController::class, 'index']);
-
+Route::get('programs', [ProgramController::class, 'index']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [PassportAuthController::class, 'logout']);
@@ -30,4 +33,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('muscleGroup/index', [MuscleGroupController::class, 'index']);
 
     Route::resource('exercises', ExerciseController::class)->except(['index']);
+    Route::resource('programs', ProgramController::class)->except(['index']);
+    Route::resource('completedExercises', CompletedExerciseController::class);
 });
