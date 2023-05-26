@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('completed_exercises', function (Blueprint $table) {
             $table->id();
+            $table->text("name_exercise");
             $table->unsignedInteger("muscle_group_id");
             $table->foreign("muscle_group_id")
                 ->references("id")

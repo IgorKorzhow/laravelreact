@@ -22,7 +22,7 @@ class StoreCompletedExerciseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
+            'name_exercise' => 'required|string',
             'muscle_group_id' => 'required|exists:muscle_groups,id',
             'date_of_completion' => 'required|date',
             'number_of_approaches' => 'required|int',

@@ -1,32 +1,27 @@
-function Table(props) {
+function Table({completedExercises, headers}) {
     return (
         <table className="table border border-1 table-hover">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                {headers.map((header) => {
+                    return <th key={header}  scope="col">{header}</th>
+                })}
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colSpan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            {
+                completedExercises?.data?.map((exercise) => {
+                    return (
+                    <tr key={exercise.id}>
+                        <th scope="row">{exercise.id}</th>
+                        <td>{exercise.name_exercise}</td>
+                        <td>{exercise.muscle_group.muscle_group}</td>
+                        <td>{exercise.date_of_completion}</td>
+                        <td>{exercise.number_of_approaches}</td>
+                        <td>{exercise.avg_number_of_repetitions}</td>
+                    </tr>)
+                })
+            }
             </tbody>
         </table>
     );

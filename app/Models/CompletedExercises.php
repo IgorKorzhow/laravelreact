@@ -19,6 +19,7 @@ class CompletedExercises extends Model
 
     protected $fillable = [
         'muscle_group_id',
+        'name_exercise',
         'user_id',
         'date_of_completion',
         'number_of_approaches',
@@ -27,7 +28,7 @@ class CompletedExercises extends Model
 
     public function muscleGroup(): HasOne
     {
-        return $this->hasOne(MuscleGroup::class);
+        return $this->hasOne(MuscleGroup::class, 'id', 'muscle_group_id');
     }
 
     public function scopeFilter(Builder $builder, QueryFilter $filter)

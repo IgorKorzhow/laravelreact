@@ -2,7 +2,7 @@ import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css'
 import "./MyCalendar.css"
 
-function MyCalendar({setDate, date, type}) {
+function MyCalendar({setDate, date, type = "default"}) {
     {if (type === "default") {
         return (
             <div className='calendar-container'>

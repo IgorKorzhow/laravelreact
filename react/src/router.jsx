@@ -9,7 +9,11 @@ import Exercises from "./pages/Exercises/Exercises.jsx";
 import CreateExercise from "./pages/Exercises/CreateExercise.jsx";
 import Programs from "./pages/Programs/Programs.jsx";
 import CreateProgram from "./pages/Programs/CreateProgram.jsx";
+import CreateCompletedExercise from "./pages/Results/CreateCompletedExercise.jsx";
+import Results from "./pages/Results/Results.jsx";
 import Progress from "./pages/Progress.jsx";
+import ShowExercise from "./pages/Exercises/ShowExercise.jsx";
+import ShowProgram from "./pages/Programs/ShowProgram.jsx";
 
 const router = createBrowserRouter([
     {
@@ -25,8 +29,16 @@ const router = createBrowserRouter([
                 element: <Exercises />
             },
             {
+                path: '/exercises/:id',
+                element: <ShowExercise />
+            },
+            {
                 path: '/programs',
                 element: <Programs />
+            },
+            {
+                path: '/programs/:id',
+                element: <ShowProgram />
             },
             {
                 path: '/login',
@@ -65,6 +77,14 @@ const router = createBrowserRouter([
             {
                 path: '/progress',
                 element: <Progress />
+            },
+            {
+                path: '/results/createCompletedExercise',
+                element: <CreateCompletedExercise />
+            },
+            {
+                path: '/results',
+                element: <Results />
             },
         ]
     },

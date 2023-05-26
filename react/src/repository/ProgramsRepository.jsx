@@ -17,6 +17,18 @@ export default {
             })
     },
 
+    getProgram(id) {
+        return axiosClient.get(`/programs/${id}`)
+            .catch((error) => {
+                const response = error.response;
+                if (response) {
+                    console.log(response.data.errors);
+                }
+            })
+    },
+
+
+
     getLastThreeRecords() {
         return axiosClient.get(`/programs`, {
             params: {

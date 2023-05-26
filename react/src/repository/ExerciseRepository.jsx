@@ -18,6 +18,16 @@ export default {
             })
     },
 
+    getExercise(id) {
+        return axiosClient.get(`/exercises/${id}`)
+            .catch((error) => {
+                const response = error.response;
+                if (response) {
+                    console.log(response.data.errors);
+                }
+            })
+    },
+
     post(formData) {
         return axiosClient.post("/exercises", formData)
             .catch((error) => {

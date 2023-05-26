@@ -1,11 +1,10 @@
 import Searchbar from "../../components/Searchbar.jsx";
 import {useEffect, useState} from "react";
 import LoadingSpinner from "../../components/LoaderSpinner";
-import MuscleGroupRepository from "../../repository/MuscleGroupRepository.jsx";
 import ProgramsRepository from "../../repository/ProgramsRepository.jsx";
+import {NavLink} from "react-router-dom";
 
 function Programs() {
-    const [muscles, setMuscles] = useState([]);
     const [programs, setPrograms] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
@@ -77,9 +76,14 @@ function Programs() {
                                             }
                                         </p>
                                         <p className="card-text">
-                                            Features: {console.log(program)}
+                                            Features:
+                                            <ul>
+                                                {program.features.map((feature => {
+                                                    return <li>{feature.name}</li>
+                                                }))}
+                                            </ul>
                                         </p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                                        <NavLink to={`/programs/${program.id}`} className="btn btn-primary">Open</NavLink>
                                     </div>
                                 </div>
                             )

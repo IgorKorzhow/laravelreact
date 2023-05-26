@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import ExerciseRepository from "../../repository/ExerciseRepository.jsx";
 import LoadingSpinner from "../../components/LoaderSpinner";
 import MuscleGroupRepository from "../../repository/MuscleGroupRepository.jsx";
+import {NavLink} from "react-router-dom";
 
 function Exercises() {
     const [muscles, setMuscles] = useState([]);
@@ -87,7 +88,7 @@ function Exercises() {
                                         <p className="card-text">
                                             Group of muscles: {exercise.muscle_group.muscle_group}
                                         </p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                                        <NavLink to={`/exercises/${exercise.id}`} className="btn btn-primary">Open</NavLink>
                                     </div>
                                 </div>
                             )

@@ -8,7 +8,6 @@ use App\Http\Requests\StoreExerciseRequest;
 use App\Models\Exercise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use function Webmozart\Assert\Tests\StaticAnalysis\resource;
 
 class ExerciseController extends Controller
 {
@@ -50,7 +49,8 @@ class ExerciseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $exercise = Exercise::with(['images', 'muscleGroup'])->findOrFail($id);
+        return response()->json($exercise);
     }
 
     /**

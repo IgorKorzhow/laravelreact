@@ -57,7 +57,8 @@ class ProgramController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $program = Program::with(['exercises.images', 'features'])->findOrFail($id);
+        return response()->json($program);
     }
 
     /**
