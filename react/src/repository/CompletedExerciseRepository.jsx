@@ -12,7 +12,7 @@ export default {
             }
         })
             .then((response) => {
-                callback(response.data);
+                callback(response.data.data);
             })
             .catch((error) => {
                 const response = error.response;
@@ -27,7 +27,14 @@ export default {
             .catch((error) => {
                 console.log(error);
             })
-    }
+    },
+
+    delete(id) {
+        return axiosClient.delete(`/completedExercises/${id}`)
+            .catch((error) => {
+                console.log(error);
+            })
+    },
 
 
 }

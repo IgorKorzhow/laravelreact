@@ -4,6 +4,7 @@ import ExerciseRepository from "../../repository/ExerciseRepository.jsx";
 import LoadingSpinner from "../../components/LoaderSpinner";
 import MuscleGroupRepository from "../../repository/MuscleGroupRepository.jsx";
 import {NavLink} from "react-router-dom";
+import Dropdown from "../../components/Dropdown.jsx";
 
 function Exercises() {
     const [muscles, setMuscles] = useState([]);
@@ -88,7 +89,17 @@ function Exercises() {
                                         <p className="card-text">
                                             Group of muscles: {exercise.muscle_group.muscle_group}
                                         </p>
-                                        <NavLink to={`/exercises/${exercise.id}`} className="btn btn-primary">Open</NavLink>
+                                        <div className="d-flex justify-content-between">
+                                            <div>
+                                                <NavLink to={`/exercises/${exercise.id}`} className="btn btn-primary">Open exercise</NavLink>
+                                            </div>
+                                            <Dropdown
+                                                path={"/exercises/update/" + exercise.id}
+                                                setData={setExercises}
+                                                Repository={ExerciseRepository}
+                                                id={exercise.id}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             )

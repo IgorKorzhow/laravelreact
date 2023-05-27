@@ -14,6 +14,8 @@ import Results from "./pages/Results/Results.jsx";
 import Progress from "./pages/Progress.jsx";
 import ShowExercise from "./pages/Exercises/ShowExercise.jsx";
 import ShowProgram from "./pages/Programs/ShowProgram.jsx";
+import UpdateProgram from "./pages/Programs/UpdateProgram.jsx";
+import UpdateExercise from "./pages/Exercises/UpdateExercise.jsx";
 
 const router = createBrowserRouter([
     {
@@ -67,12 +69,20 @@ const router = createBrowserRouter([
                 element: <CreateExercise />
             },
             {
+                path: '/exercises/update/:id',
+                element: <UpdateExercise />
+            },
+            {
                 path: '/programs',
                 element: <Programs />
             },
             {
                 path: '/programs/create',
                 element: <CreateProgram />
+            },
+            {
+                path: '/programs/update/:id',
+                element: <UpdateProgram />
             },
             {
                 path: '/progress',

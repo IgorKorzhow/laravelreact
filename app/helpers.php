@@ -9,3 +9,10 @@ function createAndSaveImage($path, $image): Image {
     $img['img_name'] = substr($imgPath, $pos + 1, strlen($imgPath));
     return $img;
 }
+
+function deleteImage(string $path,string $name) {
+    $image_path = public_path($path . $name);
+    if(File::exists($image_path)) {
+        File::delete($image_path);
+    }
+}

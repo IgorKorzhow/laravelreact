@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\filters\ExerciseFilter;
 use App\Http\Requests\StoreExerciseRequest;
+use App\Http\Requests\UpdateExerciseRequest;
 use App\Models\Exercise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,16 +57,30 @@ class ExerciseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateExerciseRequest $request, string $id)
     {
-        //
+        $fields = $request->validated();
+        $exercise = Exercise::findOrFail($id);
+        $exercise->name = $fields['name'];
+        $exercise->description = $fields['description'];
+        $exercise->muscle_id = $fields['muscle_id'];
+        $exercise->save();
+
+        return response()->json("Exercise was updated", 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Exercise $exercise)
     {
-        //
+        $imageName = $exercise->main_image;
+        deleteImage("storage/images/", $imageName);
+        $images = $exercise->images;
+        foreach ($images as $image) {
+            deleteImage("storage/images/", $image->img_name);
+        }
+        $exercise->delete();
+        return response()->json("Ok", 201);
     }
 }

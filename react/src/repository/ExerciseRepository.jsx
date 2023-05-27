@@ -33,5 +33,26 @@ export default {
             .catch((error) => {
             console.log(error);
         })
-    }
+    },
+
+    update(data, id) {
+        return axiosClient.patch(`/exercises/${id}`, {
+            name:  data["name"],
+            description: data["description"],
+            muscle_id: data["muscle_id"],
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },
+
+    delete(id) {
+        return axiosClient.delete(`/exercises/${id}`)
+            .catch((error) => {
+                console.log(error);
+            })
+    },
 }

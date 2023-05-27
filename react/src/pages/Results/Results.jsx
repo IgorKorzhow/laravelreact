@@ -12,9 +12,10 @@ function Results() {
     const [muscleGroup, setMuscleGroup] = useState([]);
     const [typeCalendar, setTypeCalendar] = useState("default");
     const [date, setDate] = useState(null);
-    const [completedExercises, setCompletedExercises] = useState({});
+    const [completedExercises, setCompletedExercises] = useState([]);
     const [page, setPage] = useState(1);
     const [muscleGroupSelector, setMuscleGroupSelector] = useState("default");
+    const [flag, setFlag] = useState(null);
 
     useEffect(() => {
         MuscleGroupRepository.get(setMuscleGroup);
@@ -34,7 +35,8 @@ function Results() {
         }
         queryParams["current_page"] = page;
         CompletedExerciseRepository.get(setCompletedExercises, queryParams);
-    }, [page, date, muscleGroupSelector]);
+        setFlag(null);
+    }, [page, date, muscleGroupSelector, flag]);
 
     return (
         <div className="d-flex justify-content-around mt-4">
@@ -74,8 +76,10 @@ function Results() {
                 </div>
                 <div>
                     <Table headers={["#", "Exercise name",  "Muscle group", "Date",
-                        "Number of approaches", "Avg number of repetitions"]}
+                        "Numb approaches", "Avg nmbr repetitions", "Delete"]}
                            completedExercises={completedExercises}
+                           setCompletedExercises={setCompletedExercises}
+                           setFlag={setFlag}
                     />
                     <Pagination setPage={setPage} pageCount={completedExercises.last_page} />
                 </div>

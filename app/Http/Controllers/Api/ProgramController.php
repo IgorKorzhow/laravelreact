@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\filters\ProgramFilter;
 use App\Http\Requests\StoreExerciseRequest;
 use App\Http\Requests\StoreProgramRequest;
+use App\Http\Requests\UpdateProgramRequest;
 use App\Models\Exercise;
 use App\Models\Feature;
 use App\Models\Program;
@@ -64,16 +65,34 @@ class ProgramController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateProgramRequest $request, string $id)
     {
-        //
+        $fields = $request->validated();
+        $program = Program::findOrFail($id);
+        $program->features()->delete();
+        $features = $fields['features'];
+        $exercises = $fields['exercises'];
+        foreach ($features as $feature) {
+            $createdFeature = new Feature();
+            $createdFeature->name = $feature;
+            $program->features()->save($createdFeature);
+        }
+        $program->exercises()->sync($exercises);
+        $program->header = $fields['header'];
+        $program->description = $fields['description'];
+        $program->save();
+
+        return response()->json("Program was updated", 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Program $program)
     {
-        //
+        $imageName = $program->image;
+        deleteImage("storage/images/", $imageName);
+        $program->delete();
+        return response()->json("Ok", 201);
     }
 }

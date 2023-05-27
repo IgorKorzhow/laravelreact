@@ -1,4 +1,14 @@
-function Table({completedExercises, headers}) {
+import CompletedExerciseRepository from "../repository/CompletedExerciseRepository.jsx";
+
+function Table({completedExercises, headers, setFlag}) {
+
+    const deleteButtonHandler = (event) => {
+        event.preventDefault();
+        const exerciseId = event.target.value
+        CompletedExerciseRepository.delete(exerciseId);
+        setFlag(1);
+    }
+
     return (
         <table className="table border border-1 table-hover">
             <thead>
@@ -10,7 +20,7 @@ function Table({completedExercises, headers}) {
             </thead>
             <tbody>
             {
-                completedExercises?.data?.map((exercise) => {
+                completedExercises.map((exercise) => {
                     return (
                     <tr key={exercise.id}>
                         <th scope="row">{exercise.id}</th>
@@ -19,6 +29,7 @@ function Table({completedExercises, headers}) {
                         <td>{exercise.date_of_completion}</td>
                         <td>{exercise.number_of_approaches}</td>
                         <td>{exercise.avg_number_of_repetitions}</td>
+                        <td><button value={exercise.id} onClick={deleteButtonHandler} className="btn btn-danger">Delete</button></td>
                     </tr>)
                 })
             }

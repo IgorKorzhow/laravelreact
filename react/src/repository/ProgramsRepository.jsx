@@ -27,8 +27,6 @@ export default {
             })
     },
 
-
-
     getLastThreeRecords() {
         return axiosClient.get(`/programs`, {
             params: {
@@ -49,5 +47,29 @@ export default {
             .catch((error) => {
                 console.log(error);
             })
-    }
+    },
+
+    update(data, id) {
+        return axiosClient.patch(`/programs/${id}`, {
+            header:  data["header"],
+            description: data["description"],
+            features: data["features"],
+            exercises: data["exercises"]
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },
+
+    delete(id) {
+        return axiosClient.delete(`/programs/${id}`)
+            .catch((error) => {
+                console.log(error);
+            })
+    },
+
+
 }

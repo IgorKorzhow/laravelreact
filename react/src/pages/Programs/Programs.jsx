@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import LoadingSpinner from "../../components/LoaderSpinner";
 import ProgramsRepository from "../../repository/ProgramsRepository.jsx";
 import {NavLink} from "react-router-dom";
+import Dropdown from "../../components/Dropdown.jsx";
 
 function Programs() {
     const [programs, setPrograms] = useState([]);
@@ -83,7 +84,17 @@ function Programs() {
                                                 }))}
                                             </ul>
                                         </p>
-                                        <NavLink to={`/programs/${program.id}`} className="btn btn-primary">Open</NavLink>
+                                        <div className="d-flex justify-content-between">
+                                            <div>
+                                                <NavLink to={`/programs/${program.id}`} className="btn btn-primary">Open program</NavLink>
+                                            </div>
+                                            <Dropdown
+                                                path={"/programs/update/" + program.id}
+                                                setData={setPrograms}
+                                                Repository={ProgramsRepository}
+                                                id={program.id}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             )

@@ -1,7 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import axiosClient from "../../axios-client.js";
 import {useNavigate} from "react-router-dom";
-import MuscleGroup from "../../repository/MuscleGroupRepository.jsx";
 import ExerciseRepository from "../../repository/ExerciseRepository.jsx";
 import ProgramsRepository from "../../repository/ProgramsRepository.jsx";
 
