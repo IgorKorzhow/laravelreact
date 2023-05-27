@@ -22,17 +22,25 @@ use App\Http\Controllers\API\PassportAuthController;
 
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
+
 Route::get('exercises', [ExerciseController::class, 'index']);
+Route::get('exercises/{id}', [ExerciseController::class, 'show']);
+
 Route::get('programs', [ProgramController::class, 'index']);
+Route::get('programs/{id}', [ProgramController::class, 'show']);
+
+Route::get('muscleGroup/index', [MuscleGroupController::class, 'index']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [PassportAuthController::class, 'logout']);
     Route::get('get-user', [PassportAuthController::class, 'userInfo']);
     Route::post('change-password', [PassportAuthController::class, 'changePassword']);
 
-    Route::get('muscleGroup/index', [MuscleGroupController::class, 'index']);
-
-    Route::resource('exercises', ExerciseController::class)->except(['index']);
-    Route::resource('programs', ProgramController::class)->except(['index']);
     Route::resource('completedExercises', CompletedExerciseController::class);
+
+
+    Route::middleware('adminauth')->group(function() {
+        Route::resource('exercises', ExerciseController::class)->except(['index', 'show']);
+        Route::resource('programs', ProgramController::class)->except(['index', 'show']);
+    });
 });

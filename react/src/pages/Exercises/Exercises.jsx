@@ -5,8 +5,13 @@ import LoadingSpinner from "../../components/LoaderSpinner";
 import MuscleGroupRepository from "../../repository/MuscleGroupRepository.jsx";
 import {NavLink} from "react-router-dom";
 import Dropdown from "../../components/Dropdown.jsx";
+import {useStateContext} from "../../context/contextProvider.jsx";
 
 function Exercises() {
+
+    const {role} = useStateContext();
+
+
     const [muscles, setMuscles] = useState([]);
     const [exercises, setExercises] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -93,12 +98,16 @@ function Exercises() {
                                             <div>
                                                 <NavLink to={`/exercises/${exercise.id}`} className="btn btn-primary">Open exercise</NavLink>
                                             </div>
-                                            <Dropdown
-                                                path={"/exercises/update/" + exercise.id}
-                                                setData={setExercises}
-                                                Repository={ExerciseRepository}
-                                                id={exercise.id}
-                                            />
+                                            {role === "admin" ?
+                                                <Dropdown
+                                                    path={"/exercises/update/" + exercise.id}
+                                                    setData={setExercises}
+                                                    Repository={ExerciseRepository}
+                                                    id={exercise.id}
+                                                />
+                                            :
+                                                <></>
+                                            }
                                         </div>
                                     </div>
                                 </div>

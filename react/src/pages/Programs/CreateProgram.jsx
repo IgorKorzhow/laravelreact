@@ -1,9 +1,16 @@
 import {useEffect, useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import ExerciseRepository from "../../repository/ExerciseRepository.jsx";
 import ProgramsRepository from "../../repository/ProgramsRepository.jsx";
+import {useStateContext} from "../../context/contextProvider.jsx";
 
 function CreateProgram() {
+
+    const {role} = useStateContext();
+
+    if (role === "user") {
+        return <Navigate to="/" />
+    }
 
     const [exercises, setExercises] = useState([]);
     const headerRef = useRef();

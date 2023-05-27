@@ -1,10 +1,16 @@
 import {useEffect, useRef, useState} from "react";
-import axiosClient from "../../axios-client.js";
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import MuscleGroup from "../../repository/MuscleGroupRepository.jsx";
 import ExerciseRepository from "../../repository/ExerciseRepository.jsx";
+import {useStateContext} from "../../context/contextProvider.jsx";
 
 function CreateExercise() {
+
+    const {role} = useStateContext();
+
+    if (role === "user") {
+        return <Navigate to="/" />
+    }
 
     const [muscles, setMuscles] = useState([]);
     const nameRef = useRef();

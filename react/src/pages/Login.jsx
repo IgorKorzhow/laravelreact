@@ -13,7 +13,7 @@ function Login() {
 
     const emailRef = useRef();
     const passwordRef = useRef();
-    const {setToken} = useStateContext();
+    const {setToken, setRole} = useStateContext();
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -24,6 +24,7 @@ function Login() {
         axiosClient.post("/login", payload)
             .then((response) => {
                 setToken(response.data.token);
+                setRole(response.data.user.role);
             })
             .catch((error) => {
                 const response = error.response;

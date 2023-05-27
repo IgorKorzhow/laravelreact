@@ -4,8 +4,12 @@ import LoadingSpinner from "../../components/LoaderSpinner";
 import ProgramsRepository from "../../repository/ProgramsRepository.jsx";
 import {NavLink} from "react-router-dom";
 import Dropdown from "../../components/Dropdown.jsx";
+import {useStateContext} from "../../context/contextProvider.jsx";
 
 function Programs() {
+
+    const {role} = useStateContext();
+
     const [programs, setPrograms] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
@@ -88,12 +92,16 @@ function Programs() {
                                             <div>
                                                 <NavLink to={`/programs/${program.id}`} className="btn btn-primary">Open program</NavLink>
                                             </div>
-                                            <Dropdown
-                                                path={"/programs/update/" + program.id}
-                                                setData={setPrograms}
-                                                Repository={ProgramsRepository}
-                                                id={program.id}
-                                            />
+                                            {role === "admin" ?
+                                                <Dropdown
+                                                    path={"/programs/update/" + program.id}
+                                                    setData={setPrograms}
+                                                    Repository={ProgramsRepository}
+                                                    id={program.id}
+                                                />
+                                            :
+                                                <></>
+                                            }
                                         </div>
                                     </div>
                                 </div>

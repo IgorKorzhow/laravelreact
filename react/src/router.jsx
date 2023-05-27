@@ -2,7 +2,6 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 import AuthorizedLayout from "./layouts/AuthorizedLayout.jsx";
 import UnauthorizedLayout from "./layouts/UnauthorizedLayout.jsx";
 import Login from "./pages/Login.jsx";
-import User from "./pages/User.jsx";
 import Register from "./pages/Register.jsx";
 import Main from "./pages/Main.jsx";
 import Exercises from "./pages/Exercises/Exercises.jsx";
@@ -56,10 +55,6 @@ const router = createBrowserRouter([
         path: '/',
         element: <AuthorizedLayout />,
         children: [
-            {
-                path: '/user',
-                element: <User />
-            },
             {
                 path: '/exercises',
                 element: <Exercises />

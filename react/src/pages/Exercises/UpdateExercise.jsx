@@ -1,10 +1,18 @@
 import {useEffect, useRef, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import ExerciseRepository from "../../repository/ExerciseRepository.jsx";
 import LoadingSpinner from "../../components/LoaderSpinner.jsx";
 import MuscleGroupRepository from "../../repository/MuscleGroupRepository.jsx";
+import {useStateContext} from "../../context/contextProvider.jsx";
 
 function UpdateExercise() {
+
+    const {role} = useStateContext();
+
+    if (role === "user") {
+        return <Navigate to="/" />
+    }
+
     const [exercise, setExercise] = useState();
     const [muscleGroup, setMuscleGroup] = useState();
     const [isLoadingExercises, setIsLoadingExercises] = useState(true);

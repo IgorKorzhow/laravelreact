@@ -1,10 +1,18 @@
 import {useEffect, useRef, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import ExerciseRepository from "../../repository/ExerciseRepository.jsx";
 import ProgramsRepository from "../../repository/ProgramsRepository.jsx";
 import LoadingSpinner from "../../components/LoaderSpinner.jsx";
+import {useStateContext} from "../../context/contextProvider.jsx";
 
 function UpdateProgram() {
+
+    const {role} = useStateContext();
+
+    if (role === "user") {
+        return <Navigate to="/" />
+    }
+
     const [exercises, setExercises] = useState([]);
     const [program, setProgram] = useState();
     const [isLoadingPrograms, setIsLoadingPrograms] = useState(true);

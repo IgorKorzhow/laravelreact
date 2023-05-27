@@ -14,7 +14,7 @@ function Register() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const repeatPasswordRef = useRef();
-    const {setToken} = useStateContext();
+    const {setToken, setUser} = useStateContext();
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -26,6 +26,7 @@ function Register() {
         axiosClient.post("/register", payload)
             .then((response) => {
                 setToken(response.data.token);
+                setUser(response.data.user);
         })
             .catch((error) => {
                 const response = error.response;

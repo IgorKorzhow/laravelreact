@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 function Searchbar({muscles, value, setSearchField, selectRef, clickSearchButton,
     urlCreateLink, nameLink, withSelect}) {
 
-    const {token} = useStateContext();
+    const {token, role} = useStateContext();
 
     return (
         <nav className="navbar bg-light border border-end-0">
@@ -28,9 +28,12 @@ function Searchbar({muscles, value, setSearchField, selectRef, clickSearchButton
                         }
                     </div>
                     <div>
-
-                        <NavLink className="btn btn-outline-dark" to={urlCreateLink}>{nameLink}</NavLink>
-                    </div>
+                        {role === "admin" ?
+                            <NavLink className="btn btn-outline-dark" to={urlCreateLink}>{nameLink}</NavLink>
+                            :
+                            <></>
+                        }
+                        </div>
                 </div>
             :
                 <div className="container d-flex justify-content-center">
