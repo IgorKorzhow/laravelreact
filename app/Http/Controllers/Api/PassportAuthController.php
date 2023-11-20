@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,19 +18,16 @@ class PassportAuthController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $user = User::create([
+        $user = new UserResource(User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password)
-        ]);
+        ]));
 
         $token = $user->createToken('PassportAuthToken')->accessToken;
 
         return response(compact('user', 'token'));
     }
 
-    /**
-     * Login Req
-     */
     public function login(Request $request)
     {
         $data = [
@@ -38,8 +36,9 @@ class PassportAuthController extends Controller
         ];
 
         if (auth()->attempt($data)) {
+            $user = new UserResource(auth()->user());
             $token = auth()->user()->createToken('PassportAuthToken')->accessToken;
-            return response()->json(['token' => $token], 200);
+            return response(compact('user', 'token'));
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
@@ -48,6 +47,7 @@ class PassportAuthController extends Controller
     public function logout(Request $request)
     {
         Auth::user()->AauthAcessToken()->delete();
+        return response([], 204);
     }
 
     public function changePassword(Request $request)

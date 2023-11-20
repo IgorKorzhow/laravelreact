@@ -1,7 +1,8 @@
 import {useStateContext} from "../context/contextProvider.jsx";
 import {Navigate, Outlet} from "react-router-dom";
+import Navbar from "../components/Navbar.jsx";
 
-function UserLayout() {
+function AuthorizedLayout() {
 
     const {token} = useStateContext();
 
@@ -11,10 +12,10 @@ function UserLayout() {
 
     return (
         <>
-            <div>User</div>
+            <Navbar />
             <Outlet />
         </>
     );
 }
 
-export default UserLayout;
+export default AuthorizedLayout;
